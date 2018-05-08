@@ -11,7 +11,7 @@ class InstagramController extends Controller
     public $settings=array(
         "clientID"=>"ad138f70217140f69e9873bdcc397c9e",
         "clientSecret"=>"ef929ec7de3742d7b40dbe3cb5a3b553",
-        "redirectURI"=>"http://localhost/LaravelTodoClone/public/callback"
+        "redirectURI"=>"http://localhost/Instagram_App_github/Laravel_5.6_App/The_App/public/callback"
     );
     public $clientID = "";
     public $clientSecret = "";
