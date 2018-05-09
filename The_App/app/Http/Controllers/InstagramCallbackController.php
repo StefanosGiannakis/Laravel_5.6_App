@@ -40,7 +40,7 @@ class InstagramCallbackController extends Controller
         $_SESSION['fullname'] = $this->data->user->full_name;
         $_SESSION['profilePicture'] = $this->data->user->profile_picture;
 
-
+        //We need a function to check if an instagram user exists
         
         // auth()->login($user);
         return $this->create();
@@ -63,12 +63,12 @@ class InstagramCallbackController extends Controller
 
         // Session::flash('success','Your user Created');
         // return redirect()->back();
-        return $this->redirectTo();   
-    }
+        return redirect()->route('logged');   // we return route instead of 
+    }                                         // view bcz we need just logged on url bar
 
-    public function redirectTo()
+    public function loggedPage()
     {
-        return view('logged');
-    }
+        return view('logged'); 
+    }                           
 
 }
