@@ -13,7 +13,11 @@ class AddRelationInstagramUser extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('social_instagram_accounts',function (Blueprint $table){
+            $table->foreign('userId')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+        });
     }
 
     /**

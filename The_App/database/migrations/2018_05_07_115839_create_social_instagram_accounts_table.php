@@ -17,7 +17,8 @@ class CreateSocialInstagramAccountsTable extends Migration
         // user id, and inprovider this case, will always be Facebook
         Schema::create('social_instagram_accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('instagram_id');// maybe provider_user_id if we want to mplement more authorizations
+            $table->integer('userId')->unsigned();//FK
+            $table->bigInteger('instagram_id');// maybe provider_user_id if we want to mplement more authorizations
             $table->string('username');
             $table->string('fullname')->nullable(); //Maybe not 
             $table->string('provider'); // some how we must past the provider, i think hardcoded
