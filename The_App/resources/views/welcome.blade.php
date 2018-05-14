@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    The Instagram App
                 </div>
 
                 <div class="links">
