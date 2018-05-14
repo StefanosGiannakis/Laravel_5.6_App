@@ -46,28 +46,37 @@ class InstagramCallbackController extends Controller
         $EMAIL = $this->data->user->username . '@' . 'myapp' . '.com';
         $user = User::where('email', $EMAIL)->first();
         
-        if ($user) {
-            $this->ifAlreadyAuser($user);
+        if (!$user) {
+            
+            $this->CallUserCreate();
         }
-       
         // auth()->login($user);
-        return $this->CallUserCreate();
+        return $this->ifAlreadyAuser();
 
     }
-    public function ifAlreadyAuser($user)// bcz laravel is already checking if simple user exists 
+    public function ifAlreadyAuser()// bcz laravel is already checking if simple user exists 
     {
-
-        
+       $this-> CustomAuthCall();
+        // Auth::login($user,true);
         // dd(Auth::id());
          // I check and is not necessary to pass this as the 2nd argument
         // $remember = false;
         // Auth::loginUsingId($user->id, true);
         // Auth::login($user, $remember);
         // dd(Auth::login($user, $remember));
-        return redirect()->route('home');
+        return $this->rhome();
         // return $user;
     }
+    public function CustomAuthCall(){
+        $EMAIL = $this->data->user->username . '@' . 'myapp' . '.com';
+        $user = User::where('email', $EMAIL)->first();
+        Auth::login($user,true);
+    }
+public function rhome(){
 
+    
+    return redirect()->route('home');
+}
     public function CallUserCreate()
     {
         $EMAIL = $this->data->user->username . '@' . 'myapp' . '.com';
@@ -119,10 +128,10 @@ class InstagramCallbackController extends Controller
         $user->profilePicture = $this->data->user->profile_picture;
         $user->provider = 'Instagram'; //assign the provider by hand
         $user->save();
-     
-       
-        return redirect()->route('home');   // we return route instead of 
-                                             // view bcz we need just logged on url bar
+        
+         
+        return Auth::loginUsingId($id, true);   // we return route instead of 
+                                      // view bcz we need just logged on url bar
     }
 
     // public function loggedPage()
