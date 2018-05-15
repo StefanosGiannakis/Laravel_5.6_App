@@ -11,8 +11,9 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
-            html, body {
+            /* html, body {
                 background-color: #fff;
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
@@ -61,11 +62,83 @@
 
             .m-b-md {
                 margin-bottom: 30px;
-            }
+            } */
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+
+            <nav class="navbar is-info">
+                    <div class="navbar-brand">
+                      <a class="navbar-item" href="https://bulma.io">
+                        <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+                      </a>
+                      <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                  
+                    <div id="navbarExampleTransparentExample" class="navbar-menu">
+                      <div class="navbar-start">
+                        <a class="navbar-item" href="https://bulma.io/">
+                          Home
+                        </a>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                          <a class="navbar-link" href="/documentation/overview/start/">
+                            Docs
+                          </a>
+                          <div class="navbar-dropdown is-boxed">
+                            <a class="navbar-item" href="/documentation/overview/start/">
+                              Overview
+                            </a>
+                            <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
+                              Modifiers
+                            </a>
+                            <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                              Columns
+                            </a>
+                            <a class="navbar-item" href="https://bulma.io/documentation/layout/container/">
+                              Layout
+                            </a>
+                            <a class="navbar-item" href="https://bulma.io/documentation/form/general/">
+                              Form
+                            </a>
+                            <hr class="navbar-divider">
+                            <a class="navbar-item" href="https://bulma.io/documentation/elements/box/">
+                              Elements
+                            </a>
+                            <a class="navbar-item is-active" href="https://bulma.io/documentation/components/breadcrumb/">
+                              Components
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <div class="navbar-end">
+                        <div class="navbar-item">
+                          <div class="field is-grouped">
+                            <p class="control">
+                              
+             @if (Route::has('login'))
+                <div class="top-right links">
+                    @auth
+                        <a class="button is-link is-inverted is-outlined" href="{{ url('/home') }}">Home</a>
+                    @else
+                    <a  class="button is-link is-inverted is-outlined" href="{{ route('instagram') }}">Instagram Login</a>
+                    <a  class="button is-link is-inverted is-outlined" href="{{ route('login') }}">Login</a>
+                    <a  class="button is-link is-outlined is-inverted is-rounded" href="{{ route('register') }}">Register</a>      
+                    @endauth
+                </div>
+            @endif
+                            </p>
+                        
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </nav>
+        {{-- <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -90,6 +163,6 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </body>
 </html>
