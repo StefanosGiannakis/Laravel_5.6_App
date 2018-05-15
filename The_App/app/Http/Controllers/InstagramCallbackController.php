@@ -17,22 +17,22 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class InstagramCallbackController extends Controller
 {
-    
+
     public $Obj;
-    
+
     public function __construct(In $InstagramController)
     {
         $this->Obj = new $InstagramController;
     }
-    
-   
+
+
     public function callback()
     {
         $this->data = $this->Obj->getAccesTokenAndUserDetails($_GET['code']);
 
         $this->data = json_decode(json_encode($this->data));
 
-        $_SESSION['loggedIn'] = 1; // we need to verify on index.php
+      
         $_SESSION['accessToken'] = $this->data->access_token;
         $_SESSION['id'] = $this->data->user->id;
         $_SESSION['username'] = $this->data->user->username;
@@ -41,13 +41,12 @@ class InstagramCallbackController extends Controller
         $_SESSION['fullname'] = $this->data->user->full_name;
         $_SESSION['profilePicture'] = $this->data->user->profile_picture;
 
-
+       
         //We need a function to check if an instagram user exists
         $EMAIL = $this->data->user->username . '@' . 'myapp' . '.com';
         $user = User::where('email', $EMAIL)->first();
-        
+
         if (!$user) {
-            
             $this->CallUserCreate();
         }
         // auth()->login($user);
@@ -56,38 +55,27 @@ class InstagramCallbackController extends Controller
     }
     public function ifAlreadyAuser()// bcz laravel is already checking if simple user exists 
     {
-       $this-> CustomAuthCall();
-        // Auth::login($user,true);
-        // dd(Auth::id());
-         // I check and is not necessary to pass this as the 2nd argument
-        // $remember = false;
-        // Auth::loginUsingId($user->id, true);
-        // Auth::login($user, $remember);
-        // dd(Auth::login($user, $remember));
-        return $this->rhome();
-        // return $user;
+        $this->CustomAuthCall();
+        return redirect()->route('home');
     }
-    public function CustomAuthCall(){
+    public function CustomAuthCall()
+    {
         $EMAIL = $this->data->user->username . '@' . 'myapp' . '.com';
         $user = User::where('email', $EMAIL)->first();
-        Auth::login($user,true);
+        Auth::login($user, true);
     }
-public function rhome(){
 
-    
-    return redirect()->route('home');
-}
     public function CallUserCreate()
     {
         $EMAIL = $this->data->user->username . '@' . 'myapp' . '.com';
-        
+
         $this->createUser();
-        
+
         $userDB = User::where('email', $EMAIL)->first();
 
         // Auth::loginUsingId($userDB->id, true);
         // dd(Auth::id());
-        Auth::login($userDB,true);// worjing same as Auth::loginUsingId($userDB->id, true); i tested both
+        Auth::login($userDB, true);// worjing same as Auth::loginUsingId($userDB->id, true); i tested both
         return $this->CreateInstagramUser($userDB->id);
 
     }
@@ -105,18 +93,17 @@ public function rhome(){
         ]);
         
         // Auth::loginUsingId($user->id);
-        
+
         return $user;
     }
-    
 
-    
+
+
     public function CreateInstagramUser($id)
     {
         // find user 
         $user = User::where('email', $this->data->user->username . '@' . 'myapp' . '.com');
-        // $rr=Auth::guard('web')->User();
-        // dd($rr);
+
         // Create Instagram User
         $user = new Instagram;
         $user->instagram_id = $this->data->user->id;
@@ -128,15 +115,10 @@ public function rhome(){
         $user->profilePicture = $this->data->user->profile_picture;
         $user->provider = 'Instagram'; //assign the provider by hand
         $user->save();
-        
-         
-        return Auth::loginUsingId($id, true);   // we return route instead of 
-                                      // view bcz we need just logged on url bar
+
+
+        return Auth::loginUsingId($id, true); 
     }
 
-    // public function loggedPage()
-    // {
-    //     return view('logged');
-    // }
 
 }

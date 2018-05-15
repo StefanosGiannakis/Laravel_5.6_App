@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/logged','InstagramCallbackController@loggedPage')->name('logged');
+
+
 Route::get('/instagram','InstagramController@redirectTo')->name('instagram');
 Route::get('/callback','InstagramCallbackController@callback');
