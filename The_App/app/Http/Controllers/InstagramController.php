@@ -7,7 +7,13 @@ use App\Http\Controllers\Instagram\Settings as Settings;
 
 class InstagramController extends Controller
 {
+    // just for a reminder i can have a function with an optional argument
+    // public function testing($id=null)
+    // {
+    //     //if id is not null do this 
 
+    //     //else etc
+    // }
     public $settings=array(
         "clientID"=>"ad138f70217140f69e9873bdcc397c9e",
         "clientSecret"=>"ef929ec7de3742d7b40dbe3cb5a3b553",
